@@ -73,8 +73,10 @@ def check_processing():
       path, time = waiting.popitem(False)
       processing.append(path)
       output_filename = os.path.split(path)[-1].split('.')[0]
+      title = "Encoding: %s" % os.path.split(path)[-1]
+      verbose_log("Window title", title)
+      windll.kernel32.SetConsoleTitleA(title)
       running = subprocess.Popen(exec_str % (path,output_filename))
-      windll.kernel32.SetConsoleTitleA("Encoding: %s" % os.path.split(path)[-1])
     list_lock.release()
   else:
     # Check to see if the thread completed
